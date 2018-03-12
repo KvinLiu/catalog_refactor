@@ -1,0 +1,33 @@
+<nav class="navbar is-dark">
+  <div class="container">
+    <div class="navbar-brand">
+      <a class="navbar-item is-size-2" href="{{url_for('showAllitems')}}">
+        Catalog App
+      </a>
+    </div>
+
+    <div class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="field is-grouped">
+            {% if 'username' not in session %}
+              <p class="control">
+                <button class="button is-primary" onclick="modelActivate()">
+                  Login
+                </button>
+              </p>
+            {% else %}
+              <p class="control">
+                <a class="button is-warning" href="{{url_for('disconnect')}}">
+                  Sign out
+                </a>
+              </p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+

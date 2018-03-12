@@ -1,0 +1,68 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+<div class="section">
+  <div class="container">
+    <div class="box">
+      <div class="columns">
+        <div class="column">
+          {% with messages = get_flashed_messages() %}
+          {% if messages %}
+          <div class="notification is-success">
+            <a class="delete" href="{{url_for('showAllitems')}}"></a>
+            <ul>
+              {% for message in messages %}
+              <li> <strong> {{ message }} </strong> </li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% endif %}
+          {% endwith %}
+        </div>
+      </div>
+      <div class="columns is-white">
+        <div class="column">
+          <div class="card">
+            <div class="card-header">
+              <p class="card-header-title is-size-3">Catagories</p>
+            </div>
+            <div class="card-content">
+              <ul>
+                {% for category in categories %}
+                <li class="is-size-4">
+                  <a href="{{url_for('showCategory', category_id = category.id)}}">
+                    <strong> {{ category.name }} </strong>
+                  </a>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="column is-three-quarters">
+          <div class="card">
+            <div class="card-header">
+              <p class="card-header-title is-size-3">Latest Items</p>
+            </div>
+            <div class="card-content">
+              <ul>
+                {% for item in items %}
+                <li class="is-size-4">
+                  <a href="{{url_for('showItem', item_cat = item.cat_id, item_name = item.title)}}">
+                    <strong> {{ item.title }} </strong>
+                  </a>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="card-footer">
+              <a class="card-footer-item button is-primary"
+                 href="{{url_for('newItem')}}">Add Item</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

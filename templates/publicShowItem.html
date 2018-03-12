@@ -1,0 +1,29 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+<div class="section">
+	<div class="container">
+		<div class="columns is-white">
+			<div class="column">
+				<div class="card">
+					<header class="card-header">
+						<p class="card-header-title is-size-3">
+							{{ item.title }}
+						</p>
+					</header>
+					<div class="card-content">
+						<p class="is-size-4">
+							{{ item.description }}
+						</p>
+					</div>
+					<footer class="card-footer">
+						<a href="{{ url_for('showAllitems') }}" class="card-footer-item">
+							Back
+						</a>
+					</footer>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

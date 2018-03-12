@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+
+    <!--js-script for google Oauth2 auth -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="//apis.google.com/js/platform.js?onload=start"></script>
+    <title>Catalog App</title>
+  </head>
+  <body style="height:100vh; background-color:hsl(0, 0%, 96%)">
+  {% block content %}
+  {% endblock %}
+  <div class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Login With Google</p>
+        <button class="delete" aria-label="close" onclick="modelDeactivate()"></button>
+      </header>
+      <section class="modal-card-body">
+        <div id="signinButton">
+          <span class="g-signin"
+                data-scope="openid email"
+                data-clientid="335979440117-bijsicmbca1p0e8ah66cpj18ae6f0fuh.apps.googleusercontent.com"
+                data-redirecturi="postmessage"
+                data-accesstype="offline"
+                data-cookiepolicy="single_host_origin"
+                data-callback="signInCallback"
+                data-approvalprompt="force">
+          </span>
+        </div>
+      </section>
+    </div>
+  </div>
+  <script>
+    function modelActivate() {
+      $('.modal').addClass('is-active')
+    };
+    function modelDeactivate() {
+      $('.modal').removeClass('is-active')
+    };
+    function signInCallback(authResult) {
+	    if (authResult['code']) {
+		    $.ajax({
+			    type: 'POST',
+			    url: '/gconnect?state={{STATE}}',
+			    processData: false,
+			    data: authResult['code'],
+			    contentType: 'application/octet-stream; charset=utf-8',
+			    success: function(result) {
+				    // Handle or verify the server response if necessary.
+				    if (result) {
+					    $('.modal').removeClass('is-active');
+					    setTimeout(function() {
+						    window.location.href = "/";
+					    }, 500);
+				    } else{
+					    console.log('There was an error: ' + authResult['error']);
+				    }
+			    }
+		    });
+	    }
+    }
+  </script>
+  </body>
+</html>

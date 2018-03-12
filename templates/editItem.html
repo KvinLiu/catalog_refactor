@@ -1,0 +1,59 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+<div class="section">
+	<div class="container">
+		<div class="box">
+			<h1 class="is-size-3">Edit Item</h1>
+			<div class="columns is-white">
+				<div class="column">
+					<form action="{{ url_for('editItem',item=item.title)}}" method="post">
+						<div class="field">
+							<label class="label">Title</label>
+							<div class="control">
+								<input class="input" type="text" placeholder="{{ item.title }}" name="title">
+							</div>
+						</div>
+
+						<div class="field">
+							<label class="label">Description</label>
+							<div class="control">
+								<textarea
+												class="textarea"
+												placeholder="{{ item.description }}"
+												name="description"></textarea>
+							</div>
+						</div>
+
+						<div class="field">
+							<label class="label">Category</label>
+							<div class="control">
+								<div class="select">
+									<select name="category">
+										{% for category in categories %}
+										<option value="{{category.id}}"> {{ category.name }}</option>
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="field is-grouped">
+							<div class="control">
+								<button class="button is-link">Submit</button>
+							</div>
+							<div class="control">
+								<a
+												class="button is-text"
+												href="{{url_for('showItem', item_cat=item.cat_id, item_name=item.title)}}">
+									Cancel</a>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+{% endblock %}
