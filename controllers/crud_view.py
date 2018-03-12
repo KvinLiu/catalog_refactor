@@ -11,8 +11,6 @@ from flask import (render_template,
                    redirect,
                    url_for,
                    flash,
-                   jsonify,
-                   abort,
                    make_response)
 
 # Import session state from auth_views controler
